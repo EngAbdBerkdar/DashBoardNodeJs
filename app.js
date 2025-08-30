@@ -3,10 +3,17 @@ const mongoose = require("mongoose");
 const app = express();
 const port = 3000;
 app.use(express.urlencoded({ extended: true }));
+app.set("view engine", "ejs");
 const TheUserName = require("./models/MyDataSchema");
 
 app.get("/", (req, res) => {
-  res.sendFile("./views/home.html", { root: __dirname });
+  TheUserName.find()
+    .then((result) => {
+      res.render("home", { mytitle: "home page", array: result });
+    })
+    .catch((err) => {
+      console.log(err);
+    });
 });
 app.get("/index.html", (req, res) => {
   res.send("<h1>The Data Saved in DataBase</h1>");
@@ -29,9 +36,12 @@ mongoose
 app.post("/", (req, res) => {
   console.log(req.body);
   const theUserName = new TheUserName(req.body);
-  theUserName.save().then(() => {
-    res.redirect("./index.html");
-  }).catch((err)=>{
-    console.log(err)
-  })
+  theUserName
+    .save()
+    .then(() => {
+      res.redirect("./index.html");
+    })
+    .catch((err) => {
+      console.log(err);
+    });
 });
