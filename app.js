@@ -4,22 +4,23 @@ const app = express();
 const port = 3000;
 app.use(express.urlencoded({ extended: true }));
 app.set("view engine", "ejs");
-app.use(express.static("public"));// to use css file
-const TheUserName = require("./models/MyDataSchema");
+app.use(express.static("public")); // to use css file
 
+// get the pages in get requset 
 app.get("/", (req, res) => {
-  TheUserName.find()
-    .then((result) => {
-      res.render("home", { mytitle: "home page", array: result });
-    })
-    .catch((err) => {
-      console.log(err);
-    });
+  res.render("index",{});
 });
-app.get("/index.html", (req, res) => {
-  res.send("<h1>The Data Saved in DataBase</h1>");
+app.get("/user/add.html", (req, res) => {
+  res.render("user/add")
 });
-
+app.get("/user/view.html", (req, res) => {
+  res.render("user/view")
+});
+app.get("/user/edit.html", (req, res) => {
+  res.render("user/edit")
+});
+// ===========================
+// conect in data base
 mongoose
   .connect(
     "mongodb+srv://abomohammad:abomohammad1234@clusterbero.uej4sxw.mongodb.net/all-data?retryWrites=true&w=majority"
@@ -33,16 +34,4 @@ mongoose
   .catch((err) => {
     console.error("❌ Error connecting to MongoDB:", err.message);
   });
-
-app.post("/", (req, res) => {
-  console.log(req.body);
-  const theUserName = new TheUserName(req.body);
-  theUserName
-    .save()
-    .then(() => {
-      res.redirect("./index.html");
-    })
-    .catch((err) => {
-      console.log(err);
-    });
-});
+// ===========================
