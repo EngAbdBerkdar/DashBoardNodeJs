@@ -43,12 +43,12 @@
           <ol class="breadcrumb">
             <li class="breadcrumb-item"><a href="/">Home</a></li>
             <li class="breadcrumb-item active" aria-current="page">
-              Ali Hassan
+              <%= arr1.firstName %> <%= arr1.lastName %>
             </li>
           </ol>
 
           <p class=" ">
-            <span class="fw-medium fs-6">Id :</span> 6487021520bcf1af6319484c
+            <span class="fw-medium fs-6">Id :</span> <%= arr1._id %>
           </p>
         </nav>
 
@@ -59,38 +59,38 @@
           <thead>
             <tr>
               <th scope="col">First Name</th>
-              <th class="fw-normal" scope="col">Ali</th>
+              <th class="fw-normal" scope="col"><%= arr1.firstName %></th>
             </tr>
           </thead>
           <tbody>
             <tr>
               <th scope="row">Last Name</th>
-              <td>Hassan</td>
+              <td><%= arr1.lastName %></td>
             </tr>
 
             <tr>
               <th scope="row">Telephone</th>
-              <td>Test1</td>
+              <td><%= arr1.phoneNumber %></td>
             </tr>
 
             <tr>
               <th scope="row">Email</th>
-              <td>ali7assan@gmail.com</td>
+              <td><%= arr1.email %></td>
             </tr>
 
             <tr>
               <th scope="row">Gender</th>
-              <td>Test3</td>
+              <td><%= arr1.gender %></td>
             </tr>
 
             <tr>
               <th scope="row">Age</th>
-              <td>Test4</td>
+              <td><%= arr1.age %></td>
             </tr>
 
             <tr>
               <th scope="row">Country</th>
-              <td>Test5</td>
+              <td><%= arr1.contry %></td>
             </tr>
 
             <tr>
