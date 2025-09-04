@@ -19,8 +19,7 @@
     <title>Edit page</title>
 
     <link href="../css/bootstrap.min.css" rel="stylesheet" />
-     <link rel="stylesheet" href="../css/dark-light.css" />
-
+    <link rel="stylesheet" href="../css/dark-light.css" />
 
     <!-- Custom styles for this template -->
     <link href="../css/sidebars.css" rel="stylesheet" />
@@ -30,7 +29,7 @@
     <%- include('./../components/dark-light.ejs') %>
 
     <main class="d-flex flex-nowrap">
-     <%- include('./../components/sidebar.ejs',{cuurentPage:"edit"}) %>
+      <%- include('./../components/sidebar.ejs',{cuurentPage:"edit"}) %>
 
       <section class="w-100">
         <%- include('./../components/navbar.ejs'); %>
@@ -51,7 +50,12 @@
           </p>
         </nav>
 
-        <form class="mx-0 row gx-3 gy-4 mt-2">
+        <form
+
+          method="POST"
+          action="/user/edit.html"
+          class="mx-0 row gx-3 gy-4 mt-2"
+        >
           <div class="col-md-6">
             <label for="inputfirstName4" class="form-label">First Name:</label>
             <input
@@ -130,9 +134,9 @@
               Update changes
             </button>
             <button
+              type="button"
               data-bs-toggle="modal"
               data-bs-target="#exampleModal"
-              type="button"
               class="btn btn-danger"
             >
               Delete Customer
@@ -173,7 +177,9 @@
               >
                 Close
               </button>
-              <button type="button" class="btn btn-danger">Delete</button>
+              <form method="post" action="/edit/<%= element._id %>?_method=DELETE">
+                <button type="submit" class="btn btn-danger">Delete</button>
+              </form>
             </div>
           </div>
         </div>
