@@ -54,7 +54,7 @@
                 <td><%= element.gender %></td>
                 <td><%= element.contry %></td>
                 <td><%= element.age %></td>
-                <td>1 days ago</td>
+                <td><%= moment(element.updatedAt).fromNow() %></td>
                 <td>
                   <a
                     data-bs-toggle="tooltip"

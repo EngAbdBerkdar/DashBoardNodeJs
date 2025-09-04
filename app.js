@@ -1,5 +1,6 @@
 const express = require("express");
 const mongoose = require("mongoose");
+var moment = require("moment"); // require
 const app = express();
 const port = 3000;
 app.use(express.urlencoded({ extended: true })); //
@@ -12,7 +13,7 @@ app.get("/", (req, res) => {
   customer
     .find()
     .then((result) => {
-      res.render("index", { arr: result });
+      res.render("index", { arr: result, moment: moment });
     })
     .catch((err) => {
       console.log(err);
@@ -21,19 +22,18 @@ app.get("/", (req, res) => {
 app.get("/user/add.html", (req, res) => {
   res.render("user/add");
 });
+app.get("/user/edit.html", (req, res) => {
+  res.render("user/edit");
+});
 app.get("/user/:id", (req, res) => {
   customer
     .findById(req.params.id)
     .then((result) => {
-      console.log(result);
-      res.render("user/view", { arr1: result });
+      res.render("user/view", { arr1: result, moment: moment });
     })
     .catch((err) => {
       console.log(err);
     });
-});
-app.get("/user/edit.html", (req, res) => {
-  res.render("user/edit");
 });
 // ===========================
 // Post requst
