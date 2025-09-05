@@ -30,7 +30,7 @@
     <main class="d-flex flex-nowrap">
       <%- include('./components/sidebar.ejs',{cuurentPage:"index"}) %>
       <section class="w-100">
-        <%- include('./components/navbar.ejs'); %>
+        <%- include('./components/navbar.ejs'); %> <% if (arr.length > 0) { %>
         <table
           style="width: 99%"
           class="text-center mx-auto table mt-5 table-striped table-bordered"
@@ -62,9 +62,8 @@
                   data-bs-placement="top"
                   class="btn btn-primary btn-sm"
                   href="/view/<%= element._id %>"
-                  ><i class="bi bi-eye"></i
-                ></a>
-
+                  ><i class="bi bi-eye"></i>
+                </a>
                 <a
                   data-bs-toggle="tooltip"
                   data-bs-title="Edit user"
@@ -74,7 +73,11 @@
                 >
                   <i class="bi bi-pencil"></i>
                 </a>
-                <form style="display :inline;" method="post" action="/edit/<%= element._id %>?_method=DELETE">
+                <form
+                  style="display: inline"
+                  method="post"
+                  action="/edit/<%= element._id %>?_method=DELETE"
+                >
                   <button
                     data-bs-toggle="tooltip"
                     data-bs-title="Delete user"
@@ -89,6 +92,11 @@
             <% }) %>
           </tbody>
         </table>
+        <% } %> <% if (arr.length === 0) { %>
+        <div class="alert alert-info text-center mt-5" role="alert">
+          No users found.
+        </div>
+        <% } %>
       </section>
     </main>
     <script src="./js/bootstrap.bundle.min.js"></script>

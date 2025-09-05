@@ -11,6 +11,9 @@ app.use(methodOverride("_method")); // delete items
 
 const customer = require("./models/customerSchema");
 
+var country = require("country-list-js");
+var country_names = country.names();
+
 // get the pages in get requset
 app.get("/", (req, res) => {
   customer
@@ -23,13 +26,17 @@ app.get("/", (req, res) => {
     });
 });
 app.get("/user/add.html", (req, res) => {
-  res.render("user/add");
+  res.render("user/add", { country: country_names });
 });
 app.get("/edit/:id", (req, res) => {
   customer
     .findById(req.params.id)
     .then((result) => {
-      res.render("user/edit", { element: result, moment: moment });
+      res.render("user/edit", {
+        element: result,
+        moment: moment,
+        country: country_names,
+      });
     })
     .catch((err) => {
       console.log(err);
@@ -71,6 +78,19 @@ app.delete("/edit/:id", (req, res) => {
     });
 });
 // =============
+// put requst
+app.put("/edit/:id", (req, res) => {
+  customer
+    .findByIdAndUpdate(req.params.id, req.body, { new: true, runValidators: true })
+    .then(() => {
+      res.redirect("/");
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+});
+
+// ==========
 // conect in data base
 mongoose
   .connect(

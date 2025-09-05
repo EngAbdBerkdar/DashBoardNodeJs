@@ -41,25 +41,26 @@
           <ol class="breadcrumb">
             <li class="breadcrumb-item"><a href="/">Home</a></li>
             <li class="breadcrumb-item active" aria-current="page">
-              Ali Hassan
+              <%= element.firstName %> <%= element.lastName %>
             </li>
           </ol>
 
           <p class="me-md-5">
-            <span class="fw-medium fs-6">Id :</span> 6487021520bcf1af6319484c
+            <span class="fw-medium fs-6">Id :</span> <%= element._id %>
           </p>
         </nav>
 
         <form
-
           method="POST"
-          action="/user/edit.html"
+          action="/edit/<%= element._id %>?_method=PUT"
           class="mx-0 row gx-3 gy-4 mt-2"
         >
           <div class="col-md-6">
             <label for="inputfirstName4" class="form-label">First Name:</label>
             <input
+              name="firstName"
               placeholder="Ali..."
+              value="<%= element.firstName %>"
               type="text"
               class="form-control"
               id="inputfirstName4"
@@ -68,7 +69,9 @@
           <div class="col-md-6">
             <label for="inputlastName4" class="form-label">Last Name:</label>
             <input
+              name="lastName"
               placeholder="Hassan..."
+              value="<%= element.lastName %>"
               type="text"
               class="form-control"
               id="inputlastName4"
@@ -78,7 +81,9 @@
           <div class="col-md-6">
             <label for="inputemail4" class="form-label">Email:</label>
             <input
+              name="email"
               placeholder="ali@gmail.com"
+              value="<%= element.email %>"
               type="email"
               class="form-control"
               id="inputemail4"
@@ -87,7 +92,9 @@
           <div class="col-md-6">
             <label for="inputtele4" class="form-label">Telephone:</label>
             <input
+              name="phoneNumber"
               placeholder="011987899"
+              value="<%= element.phoneNumber %>"
               type="number"
               class="form-control"
               id="inputtele4"
@@ -98,7 +105,9 @@
             <div class="col-md-6">
               <label for="inputage4" class="form-label">Age:</label>
               <input
+                name="age"
                 placeholder="Your Age: ..."
+                value="<%= element.age %>"
                 type="number"
                 class="form-control"
                 id="inputage4"
@@ -109,11 +118,13 @@
           <div>
             <div class="col-md-6">
               <label for="inputCountry" class="form-label">Country:</label>
-              <select id="inputCountry" class="form-select">
-                <option selected hidden disabled>Choose here ...</option>
-
-                <option>Morocco</option>
-                <option>Egypt</option>
+              <select name="contry" id="inputCountry" class="form-select">
+                <option selected hidden disabled>
+                  chosee her ..
+                </option>
+                <% country.forEach(item => { %>
+                <option <%= item === element.contry ? 'selected' : '' %> ><%= item %></option>
+                <% }) %>
               </select>
             </div>
           </div>
@@ -121,10 +132,10 @@
           <div>
             <div class="col-md-6">
               <label for="inputGender" class="form-label">Gender:</label>
-              <select id="inputGender" class="form-select">
-                <option selected hidden disabled>Choose here ...</option>
-                <option>Male</option>
-                <option>Female</option>
+              <select name="gender" id="inputGender" class="form-select">
+                <option selected hidden disabled>chosee her</option>
+                <option  <%= "Male" === element.gender ? 'selected' : '' %> >Male</option>
+                <option  <%= "Female" === element.gender ? 'selected' : '' %> >Female</option>
               </select>
             </div>
           </div>
@@ -177,7 +188,10 @@
               >
                 Close
               </button>
-              <form method="post" action="/edit/<%= element._id %>?_method=DELETE">
+              <form
+                method="post"
+                action="/edit/<%= element._id %>?_method=DELETE"
+              >
                 <button type="submit" class="btn btn-danger">Delete</button>
               </form>
             </div>
