@@ -65,6 +65,29 @@ app.post("/user/add.html", (req, res) => {
       console.log(err);
     });
 });
+
+app.post("/search", (req, res) => {
+  customer
+    .find({ $or: [{ firstName: "berkdar" }, { lastName: "berkdar" }] })
+    .then((result) => {
+      console.log(result);
+      res.render("user/search", { arr: result, moment: moment });
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+});
+
+// app.post("/search", (req, res) => {
+//   customer
+//     .find({ age: { $gt: 20 } })
+//     .then((result) => {
+//       console.log(result);
+//     })
+//     .catch((err) => {
+//       console.log(err);
+//     });
+// });
 // ===============
 // DELETE REQUST
 app.delete("/edit/:id", (req, res) => {
@@ -81,7 +104,10 @@ app.delete("/edit/:id", (req, res) => {
 // put requst
 app.put("/edit/:id", (req, res) => {
   customer
-    .findByIdAndUpdate(req.params.id, req.body, { new: true, runValidators: true })
+    .findByIdAndUpdate(req.params.id, req.body, {
+      new: true,
+      runValidators: true,
+    })
     .then(() => {
       res.redirect("/");
     })
