@@ -20,7 +20,7 @@
 
     <link href="../css/bootstrap.min.css" rel="stylesheet" />
 
-     <link rel="stylesheet" href="../css/dark-light.css" />
+    <link rel="stylesheet" href="../css/dark-light.css" />
 
     <!-- Custom styles for this template -->
     <link href="../css/sidebars.css" rel="stylesheet" />
@@ -50,11 +50,12 @@
             </tr>
           </thead>
           <tbody>
+            <% arr.forEach((element,index) => { %>
             <tr>
-              <th scope="row">1</th>
-              <td>test1</td>
-              <td>test2</td>
-              <td>@test3</td>
+              <th scope="row"><%= index + 1 %></th>
+              <td><%= element.firstName + " " + element.lastName %></td>
+              <td><%= element.gender %></td>
+              <td><%= element.contry %></td>
 
               <td>
                 <a
@@ -62,7 +63,7 @@
                   data-bs-title="View details"
                   data-bs-placement="top"
                   class="btn btn-primary btn-sm"
-                  href="./user/view.html"
+                  href="/view/<%= element._id %>"
                   ><i class="bi bi-eye"></i
                 ></a>
 
@@ -71,20 +72,27 @@
                   data-bs-title="Edit user"
                   data-bs-placement="top"
                   class="btn btn-primary btn-sm"
-                  href="./user/edit.html"
+                  href="/edit/<%= element._id %>"
                 >
                   <i class="bi bi-pencil"></i>
                 </a>
-                <button
-                  data-bs-toggle="tooltip"
-                  data-bs-title="Delete user"
-                  data-bs-placement="top"
-                  class="btn btn-danger btn-sm"
+                <form
+                  style="display: inline"
+                  action="/edit/<%= element._id %>?_method=DELETE"
+                  method="post"
                 >
-                  <i class="bi bi-trash"></i>
-                </button>
+                  <button
+                    data-bs-toggle="tooltip"
+                    data-bs-title="Delete user"
+                    data-bs-placement="top"
+                    class="btn btn-danger btn-sm"
+                  >
+                    <i class="bi bi-trash"></i>
+                  </button>
+                </form>
               </td>
             </tr>
+            <% }) %>
           </tbody>
         </table>
       </section>

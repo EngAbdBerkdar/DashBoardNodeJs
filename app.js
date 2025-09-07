@@ -67,10 +67,10 @@ app.post("/user/add.html", (req, res) => {
 });
 
 app.post("/search", (req, res) => {
+  let input = req.body.textSearch.trim();
   customer
-    .find({ $or: [{ firstName: "berkdar" }, { lastName: "berkdar" }] })
+    .find({ $or: [{ firstName: input }, { lastName: input }] })
     .then((result) => {
-      console.log(result);
       res.render("user/search", { arr: result, moment: moment });
     })
     .catch((err) => {
